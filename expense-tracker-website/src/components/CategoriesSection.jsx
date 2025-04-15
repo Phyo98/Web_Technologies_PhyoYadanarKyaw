@@ -94,7 +94,6 @@ const CategoriesSection = () => {
                 <FaQuestion size={30} className="text-gray-400 mb-2 mx-auto" />
               )}
               <p className="text-lg font-medium mb-2">{cat.name}</p>
-              {/* Show transaction count if user is logged in */}
               <p className="text-blue-600 font-bold">
                 {transactionsCount[cat.name] || 0} transactions
               </p>

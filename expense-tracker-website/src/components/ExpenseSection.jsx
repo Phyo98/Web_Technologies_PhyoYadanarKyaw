@@ -24,10 +24,14 @@ const ExpenseSection = () => {
           },
         });
 
-        const fetchedExpenses = res.data.transactions.map((t) => ({
-          category: t.title, 
-          amount: t.type === "expense" ? -Math.abs(t.amount) : Math.abs(t.amount),
-        }));
+        const fetchedExpenses = res.data.transactions
+          .map((t) => ({
+            id: t.id,
+            title: t.title,
+            amount: t.type === "expense" ? -Math.abs(t.amount) : Math.abs(t.amount),
+            date: t.date,
+          }))
+          .sort((a, b) => new Date(b.date) - new Date(a.date)); 
 
         setExpenses(fetchedExpenses);
       } catch (error) {
@@ -55,13 +59,11 @@ const ExpenseSection = () => {
     }
   }, [token]);
 
-  // Form change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -77,13 +79,19 @@ const ExpenseSection = () => {
           ? -Math.abs(newTransaction.amount)
           : Math.abs(newTransaction.amount);
 
-      setExpenses((prev) => [
-        ...prev,
+      const updatedExpenses = [
         {
-          category: newTransaction.title, 
+          id: newTransaction.id,
+          title: newTransaction.title,
           amount: signedAmount,
+          date: newTransaction.date,
         },
-      ]);
+        ...expenses,
+      ]
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 10); 
+
+      setExpenses(updatedExpenses);
 
       setForm({ title: "", amount: "", type: "expense", category_id: "", date: "" });
     } catch (error) {
@@ -171,7 +179,6 @@ const ExpenseSection = () => {
               <option value="expense">Expense</option>
               <option value="income">Income</option>
             </select>
-            {/* Category Dropdown */}
             <select
               name="category_id"
               value={form.category_id}
@@ -204,6 +211,7 @@ const ExpenseSection = () => {
       )}
 
       {/* Transactions List */}
+      <h4 className="my-3 font-bold">Recent Transactions</h4>
       <div className="bg-white rounded-xl shadow p-4">
         {!token ? (
           <div className="text-center py-10">
@@ -217,9 +225,18 @@ const ExpenseSection = () => {
           </div>
         ) : (
           <ul className="divide-y divide-gray-100">
-            {expenses.map((expense, index) => (
-              <li key={index} className="py-2 flex justify-between">
-                <span>{expense.category}</span>
+            {expenses.slice(0, 10).map((expense, index) => (
+              <li key={index} className="py-2 flex justify-between items-center">
+                <div>
+                  <p className="font-medium">{expense.title}</p>
+                  <p className="text-gray-500 text-sm">
+                  {new Date(expense.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                  </p>
+                </div>
                 <span
                   className={`font-semibold ${
                     expense.amount < 0 ? "text-red-500" : "text-green-500"

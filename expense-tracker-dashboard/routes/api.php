@@ -17,6 +17,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/transactions', [TransactionController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/transactions', [TransactionController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/transaction-counts', [TransactionController::class, 'counts']);
+Route::middleware('auth:sanctum')->get('/user/expenses-by-category', [TransactionController::class, 'expensesByCategory']);
 
 Route::post('/admin/login', function (Request $request) {
     $request->validate([

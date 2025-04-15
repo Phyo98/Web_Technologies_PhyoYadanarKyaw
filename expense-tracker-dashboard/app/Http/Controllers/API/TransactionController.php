@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -20,6 +21,60 @@ class TransactionController extends Controller
             'transactions' => $transactions,
         ]);
     }
+
+    // public function expensesByCategory(Request $request)
+    // {
+    //     $user = $request->user();
+
+    //     $expenses = Transaction::selectRaw('category_id, SUM(amount) as total')
+    //         ->where('user_id', $user->id)
+    //         ->groupBy('category_id')
+    //         ->with('category:id,name')
+    //         ->get()
+    //         ->map(function ($item) {
+    //             return [
+    //                 'category' => $item->category->name,
+    //                 'total' => $item->total,
+    //             ];
+    //         });
+
+    //     return response()->json($expenses);
+    // }
+
+    public function expensesByCategory(Request $request)
+    {
+        $user = $request->user();
+        $year = $request->input('year', date('Y')); 
+
+        // Only allow current year or last year
+        $currentYear = date('Y');
+        $lastYear = $currentYear - 1;
+
+        if ($year != $currentYear && $year != $lastYear) {
+            return response()->json(['error' => 'Invalid year. Only current year and last year are allowed.'], 400);
+        }
+
+        // Start of date range for the selected year (January 1st)
+        $startDate = Carbon::createFromFormat('Y-m-d', "$year-01-01")->startOfDay();
+        // End of date range for the selected year (December 31st)
+        $endDate = Carbon::createFromFormat('Y-m-d', "$year-12-31")->endOfDay();
+
+        $expenses = Transaction::selectRaw('category_id, SUM(amount) as total')
+            ->where('user_id', $user->id)
+            ->whereBetween('date', [$startDate, $endDate]) 
+            ->groupBy('category_id')
+            ->with('category:id,name')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'category' => $item->category->name,
+                    'total' => $item->total,
+                ];
+            });
+
+        return response()->json($expenses);
+    }
+
 
     public function counts()
     {

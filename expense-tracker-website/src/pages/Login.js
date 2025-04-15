@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 px-4">
-      <h1 className="text-4xl font-bold text-blue-600 mb-2">Expensify</h1>
+      <h1 className="text-4xl font-bold text-blue-600 mb-2">ExpenseTracker</h1>
       <p className="text-gray-500 mb-6">Track your expenses with ease</p>
 
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
