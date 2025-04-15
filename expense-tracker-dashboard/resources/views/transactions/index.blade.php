@@ -5,9 +5,6 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">Transactions</h2>
-        <a href="{{ route('transactions.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add Transaction
-        </a>
     </div>
 
     <div class="card shadow-sm">

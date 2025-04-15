@@ -2,11 +2,8 @@
 
 @section('content')
 <div class="container py-4">
+    <h2 class="mb-3">User List</h2>  
     <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center bg-white">
-            <h5 class="mb-0">User List</h5>
-        </div>
-
         @if(session('success'))
             <div class="alert alert-success m-3">{{ session('success') }}</div>
         @endif
@@ -30,11 +27,15 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->format('d-m-Y H:i') }}</td>
                         <td class="text-end">
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-warning btn-sm">  <i class="fas fa-edit"> Edit</i></a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-warning btn-sm">
+                                <i class="fas fa-edit"> Edit</i>
+                            </a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-outline-danger btn-sm">   <i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-outline-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -45,6 +46,10 @@
                     @endforelse
                 </tbody>
             </table>
+
+            <div class="mt-3">
+                {{ $users->links() }}
+            </div>
         </div>
     </div>
 </div>

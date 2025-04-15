@@ -7,7 +7,7 @@
         <h2 class="mb-3">Edit Transaction</h2>
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('transactions.update', $transaction->id) }}">
+                    <form method="POST" action="{{ route('transactions.update', ['transaction' => $transaction->id, 'user_id' => $user->id]) }}">
                         @csrf
                         @method('PUT')
 

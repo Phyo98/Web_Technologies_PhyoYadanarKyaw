@@ -17,6 +17,7 @@ import {
   FaEllipsisH,
   FaQuestion,
 } from "react-icons/fa";
+import { motion } from "framer-motion"; 
 
 const iconMap = {
   "Food & Dining": <FaUtensils size={30} className="text-blue-500 mb-2 mx-auto" />,
@@ -89,7 +90,17 @@ const CategoriesSection = () => {
       ) : (
         <div className="grid md:grid-cols-3 gap-4">
           {categories.map((cat) => (
-            <div key={cat.id} className="bg-white p-6 rounded-xl shadow text-center">
+            <motion.div
+              key={cat.id}
+              className="bg-white p-6 rounded-xl shadow text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              whileHover={{
+                scale: 1.05, 
+                boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.15)", 
+              }}
+            >
               {iconMap[cat.name] || (
                 <FaQuestion size={30} className="text-gray-400 mb-2 mx-auto" />
               )}
@@ -97,7 +108,7 @@ const CategoriesSection = () => {
               <p className="text-blue-600 font-bold">
                 {transactionsCount[cat.name] || 0} transactions
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}

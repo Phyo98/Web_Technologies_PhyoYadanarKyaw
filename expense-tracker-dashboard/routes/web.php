@@ -18,6 +18,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
     Route::resource('transactions', TransactionController::class)->middleware('auth');
+    Route::put('/transactions/{transaction}/{user_id}', [TransactionController::class, 'update'])->name('transactions.update');
+
     Route::resource('categories', CategoryController::class)->middleware('auth');
     Route::resource('users', UserController::class)->middleware('auth');
     Route::resource('admins', AdminController::class)->middleware('auth');;

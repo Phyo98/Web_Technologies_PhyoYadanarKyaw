@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -14,38 +15,15 @@ class TransactionController extends Controller
         return view('transactions.index', compact('transactions'));
     }
 
-    public function create()
-    {
-        $categories = Category::all(); 
-        return view('transactions.create', compact('categories'));
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'amount' => 'required|numeric',
-            'type' => 'required|in:income,expense',
-            'category_id' => 'required|exists:categories,id',
-            'date' => 'required|date',
-        ]);
-
-        $transaction = new Transaction($request->all());
-        $transaction->user_id = auth()->id();
-        $transaction->save();
-
-        return redirect()->route('transactions.index')->with('success', 'Transaction added successfully.');
-    }
-
     public function edit(Transaction $transaction)
     {
         $categories = Category::all();
-        return view('transactions.edit', compact('transaction', 'categories'));
+        $user = User::findOrFail($transaction->user_id); 
+        return view('transactions.edit', compact('transaction', 'categories','user'));
     }
 
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, Transaction $transaction, $user_id)
     {
-        // Validate the input data
         $request->validate([
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
@@ -54,8 +32,9 @@ class TransactionController extends Controller
             'date' => 'required|date',
         ]);
 
-        // Update the transaction
-        $transaction->user_id = auth()->id(); // Ensure user_id is set
+        $user = User::findOrFail($user_id);
+
+        $transaction->user_id = $user->id; 
         $transaction->update($request->all());
 
         return redirect()->route('transactions.index')->with('success', 'Transaction updated successfully.');
