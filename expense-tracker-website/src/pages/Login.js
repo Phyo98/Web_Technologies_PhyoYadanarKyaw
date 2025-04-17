@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,41 +12,44 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("http://localhost:8000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
-
-      const text = await response.text(); 
+  
+      const text = await response.text();
       let data;
-
+  
       try {
-        data = JSON.parse(text); 
+        data = JSON.parse(text);
       } catch (jsonError) {
         throw new Error("Invalid JSON response: " + text);
       }
-
+  
       if (!response.ok) {
-        alert(data.message || "Login failed");
+        if (data.errors && data.errors.email) {
+          toast.error(data.errors.email[0]);
+        } else {
+          toast.error(data.message || "Login failed");
+        }
         return;
       }
+      
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-
       navigate("/");
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Try again.");
     }
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 px-4">
@@ -114,6 +119,7 @@ const Login = () => {
           </a>
         </p>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 };

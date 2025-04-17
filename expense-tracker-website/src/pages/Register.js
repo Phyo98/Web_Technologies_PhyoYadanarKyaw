@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEnvelope, FaEye, FaEyeSlash, FaUserPlus, FaLock } from "react-icons/fa";
-
+import { ToastContainer, toast } from "react-toastify"; 
 import { getToken, getUser } from "../utils/auth";
 
 const Register = () => {
@@ -17,7 +17,12 @@ const Register = () => {
     e.preventDefault();
 
     if (password !== confirm) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
       return;
     }
 
@@ -160,6 +165,7 @@ const Register = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 };
