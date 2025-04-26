@@ -140,19 +140,19 @@ const AnalyticsSection = () => {
 
   return (
     <section className="p-8 max-w-6xl mx-auto">
-      <h3 className="text-2xl font-semibold mb-4 flex justify-between items-center">
-        Income vs Expenses ({selectedYear})
-        <div className="flex gap-4">
+      <h3 className="text-2xl font-semibold mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+      <span>Income vs Expenses ({selectedYear})</span>
+        <div className="flex gap-2 sm:gap-4">
           <button
             onClick={() => setSelectedYear(new Date().getFullYear())}
-            className={`px-4 py-2 rounded-full transition duration-300 
+            className={`text-sm sm:text-base px-4 py-2 rounded-full transition duration-300 
               ${selectedYear === new Date().getFullYear() ? 'bg-gradient-to-r from-green-400 to-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
           >
             Current Year
           </button>
           <button
             onClick={() => setSelectedYear(new Date().getFullYear() - 1)}
-            className={`px-4 py-2 rounded-full transition duration-300 
+            className={`text-sm sm:text-base px-4 py-2 rounded-full transition duration-300 
               ${selectedYear === new Date().getFullYear() - 1 ? 'bg-gradient-to-r from-green-400 to-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
           >
             Last Year
@@ -161,7 +161,7 @@ const AnalyticsSection = () => {
       </h3>
 
       {/* Line Chart */}
-      <div className="bg-white rounded-xl shadow p-4 mb-8">
+      <div className="bg-white rounded-xl shadow py-4 px-2 mb-8">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={dataForSelectedYear}>
             <XAxis dataKey="month" />

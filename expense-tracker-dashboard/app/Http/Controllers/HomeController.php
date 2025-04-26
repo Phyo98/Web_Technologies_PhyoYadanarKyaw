@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Transaction;
+use Carbon\Carbon;         
 
 class HomeController extends Controller
 {
@@ -26,10 +27,21 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Count data
         $userCount = User::count();
         $categoryCount = Category::count();
         $transactionCount = Transaction::count();
-    
-        return view('dashboard', compact('userCount', 'categoryCount', 'transactionCount'));
+        $latestUsers = User::latest()->take(5)->get();
+        $latestTransactions = Transaction::latest()->take(5)->get();
+        $categoryTransactionCounts = Category::withCount('transactions')->get();
+
+        return view('dashboard', compact(
+            'userCount', 
+            'categoryCount', 
+            'transactionCount', 
+            'latestUsers',
+            'latestTransactions',
+            'categoryTransactionCounts'
+        ));
     }
 }
