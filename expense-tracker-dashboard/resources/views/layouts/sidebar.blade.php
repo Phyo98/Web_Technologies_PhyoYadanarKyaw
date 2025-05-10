@@ -11,7 +11,7 @@
     @auth
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{ asset('build/assets/images/avatar.gif') }}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ asset('images/avatar.gif') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="{{ route('dashboard') }}" class="d-block" style="color: #fff;">{{ Auth::user()->name }}</a>
