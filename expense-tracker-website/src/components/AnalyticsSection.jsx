@@ -139,8 +139,8 @@ const AnalyticsSection = () => {
   const topCategoryData = topCategories;
 
   return (
-    <section className="p-8 max-w-6xl mx-auto">
-      <h3 className="text-2xl font-semibold mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+    <section className="max-w-6xl p-8 mx-auto">
+      <h3 className="flex flex-col gap-4 mb-4 text-2xl font-semibold sm:flex-row sm:justify-between sm:items-center">
       <span>Income vs Expenses ({selectedYear})</span>
         <div className="flex gap-2 sm:gap-4">
           <button
@@ -161,7 +161,7 @@ const AnalyticsSection = () => {
       </h3>
 
       {/* Line Chart */}
-      <div className="bg-white rounded-xl shadow py-4 px-2 mb-8">
+      <div className="px-2 py-4 mb-8 bg-white shadow rounded-xl">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={dataForSelectedYear}>
             <XAxis dataKey="month" />
@@ -174,9 +174,9 @@ const AnalyticsSection = () => {
       </div>
 
       {/* Pie Chart & Top Categories */}
-      <div className="bg-white rounded-xl shadow p-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 p-4 bg-white shadow rounded-xl md:grid-cols-2">
         <div>
-          <h4 className="text-xl font-semibold mb-4 text-center">Expenses by Category</h4>
+          <h4 className="mb-4 text-xl font-semibold text-center">Expenses by Category</h4>
           {topCategoryData.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -204,16 +204,16 @@ const AnalyticsSection = () => {
 
         {/* Top 5 Spending Categories */}
         <div>
-          <h4 className="text-xl font-semibold mb-4 text-center">Top Categories</h4>
+          <h4 className="mb-4 text-xl font-semibold text-center">Top Categories</h4>
           {topCategories.length > 0 ? (
             <ul className="space-y-4">
               {topCategories.map((item, index) => (
-                <li key={index} className="flex items-center justify-between border-b pb-2">
+                <li key={index} className="flex items-center justify-between pb-2 border-b">
                   <div>
                     <div className="text-lg font-medium">{item.category}</div>
                     <div className="text-sm text-gray-500">{item.percentage}% of total</div>
                   </div>
-                  <span className="text-gray-700 font-semibold">${item.total.toFixed(2)}</span>
+                  <span className="font-semibold text-gray-700">${item.total.toFixed(2)}</span>
                 </li>
               ))}
             </ul>

@@ -20,21 +20,21 @@ import {
 import { motion } from "framer-motion"; 
 
 const iconMap = {
-  "Food & Dining": <FaUtensils size={30} className="text-blue-500 mb-2 mx-auto" />,
-  Transportation: <FaBus size={30} className="text-green-500 mb-2 mx-auto" />,
-  Shopping: <FaShoppingBag size={30} className="text-pink-500 mb-2 mx-auto" />,
-  Entertainment: <FaFilm size={30} className="text-purple-500 mb-2 mx-auto" />,
-  Housing: <FaHome size={30} className="text-red-500 mb-2 mx-auto" />,
-  Utilities: <FaBolt size={30} className="text-yellow-500 mb-2 mx-auto" />,
-  Health: <FaHeartbeat size={30} className="text-rose-500 mb-2 mx-auto" />,
-  Income: <FaMoneyBillWave size={30} className="text-emerald-500 mb-2 mx-auto" />,
-  Education: <FaBook size={30} className="text-indigo-500 mb-2 mx-auto" />,
-  Travel: <FaPlane size={30} className="text-sky-500 mb-2 mx-auto" />,
-  Insurance: <FaShieldAlt size={30} className="text-teal-500 mb-2 mx-auto" />,
-  "Gifts & Donations": <FaGift size={30} className="text-pink-400 mb-2 mx-auto" />,
-  Taxes: <FaBalanceScale size={30} className="text-yellow-600 mb-2 mx-auto" />,
-  "Debt Payments": <FaHandHoldingUsd size={30} className="text-red-600 mb-2 mx-auto" />,
-  Miscellaneous: <FaEllipsisH size={30} className="text-gray-500 mb-2 mx-auto" />,
+  "Food & Dining": <FaUtensils size={30} className="mx-auto mb-2 text-blue-500" />,
+  Transportation: <FaBus size={30} className="mx-auto mb-2 text-green-500" />,
+  Shopping: <FaShoppingBag size={30} className="mx-auto mb-2 text-pink-500" />,
+  Entertainment: <FaFilm size={30} className="mx-auto mb-2 text-purple-500" />,
+  Housing: <FaHome size={30} className="mx-auto mb-2 text-red-500" />,
+  Utilities: <FaBolt size={30} className="mx-auto mb-2 text-yellow-500" />,
+  Health: <FaHeartbeat size={30} className="mx-auto mb-2 text-rose-500" />,
+  Income: <FaMoneyBillWave size={30} className="mx-auto mb-2 text-emerald-500" />,
+  Education: <FaBook size={30} className="mx-auto mb-2 text-indigo-500" />,
+  Travel: <FaPlane size={30} className="mx-auto mb-2 text-sky-500" />,
+  Insurance: <FaShieldAlt size={30} className="mx-auto mb-2 text-teal-500" />,
+  "Gifts & Donations": <FaGift size={30} className="mx-auto mb-2 text-pink-400" />,
+  Taxes: <FaBalanceScale size={30} className="mx-auto mb-2 text-yellow-600" />,
+  "Debt Payments": <FaHandHoldingUsd size={30} className="mx-auto mb-2 text-red-600" />,
+  Miscellaneous: <FaEllipsisH size={30} className="mx-auto mb-2 text-gray-500" />,
 };
 
 const CategoriesSection = () => {
@@ -83,16 +83,16 @@ const CategoriesSection = () => {
   }, [token]);
 
   return (
-    <section className="p-8 max-w-6xl mx-auto">
-      <h3 className="text-2xl font-semibold mb-4">Spending by Category</h3>
+    <section className="max-w-6xl p-8 mx-auto">
+      <h3 className="mb-4 text-2xl font-semibold">Spending by Category</h3>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid gap-4 md:grid-cols-3">
           {categories.map((cat) => (
             <motion.div
               key={cat.id}
-              className="bg-white p-6 rounded-xl shadow text-center"
+              className="p-6 text-center bg-white shadow rounded-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -102,10 +102,10 @@ const CategoriesSection = () => {
               }}
             >
               {iconMap[cat.name] || (
-                <FaQuestion size={30} className="text-gray-400 mb-2 mx-auto" />
+                <FaQuestion size={30} className="mx-auto mb-2 text-gray-400" />
               )}
-              <p className="text-lg font-medium mb-2">{cat.name}</p>
-              <p className="text-blue-600 font-bold">
+              <p className="mb-2 text-lg font-medium">{cat.name}</p>
+              <p className="font-bold text-blue-600">
                 {transactionsCount[cat.name] || 0} transactions
               </p>
             </motion.div>

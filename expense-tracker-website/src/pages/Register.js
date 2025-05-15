@@ -72,26 +72,26 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-center text-blue-600 mb-2">ExpenseTracker</h2>
-        <p className="text-center text-gray-600 mb-6">Track your expenses with ease</p>
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gray-50">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+        <h2 className="mb-2 text-3xl font-bold text-center text-blue-600">ExpenseTracker</h2>
+        <p className="mb-6 text-center text-gray-600">Track your expenses with ease</p>
 
-        <h3 className="text-xl font-semibold mb-1">Create an account</h3>
-        <p className="text-gray-500 text-sm mb-6">Enter your details to create your account</p>
+        <h3 className="mb-1 text-xl font-semibold">Create an account</h3>
+        <p className="mb-6 text-sm text-gray-500">Enter your details to create your account</p>
 
         <form onSubmit={handleRegister} className="space-y-4">
           {/* User Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-            <div className="flex items-center border rounded px-3 bg-gray-100">
-              <FaUserPlus className="text-gray-400 mr-2" />
+            <label className="block mb-1 text-sm font-medium text-gray-700">Name</label>
+            <div className="flex items-center px-3 bg-gray-100 border rounded">
+              <FaUserPlus className="mr-2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Your Name"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-                className="w-full bg-gray-100 outline-none py-2"
+                className="w-full py-2 bg-gray-100 outline-none"
                 required
               />
             </div>
@@ -99,15 +99,15 @@ const Register = () => {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <div className="flex items-center border rounded px-3 bg-gray-100">
-              <FaEnvelope className="text-gray-400 mr-2" />
+            <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
+            <div className="flex items-center px-3 bg-gray-100 border rounded">
+              <FaEnvelope className="mr-2 text-gray-400" />
               <input
                 type="email"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-gray-100 outline-none py-2"
+                className="w-full py-2 bg-gray-100 outline-none"
                 required
               />
             </div>
@@ -115,14 +115,14 @@ const Register = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <div className="flex items-center border rounded px-3 bg-gray-100">
-              <FaLock className="text-gray-400 mr-2" />
+            <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
+            <div className="flex items-center px-3 bg-gray-100 border rounded">
+              <FaLock className="mr-2 text-gray-400" />
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-gray-100 outline-none py-2"
+                className="w-full py-2 bg-gray-100 outline-none"
                 required
               />
               <button type="button" onClick={() => setShowPassword(!showPassword)}>
@@ -133,14 +133,14 @@ const Register = () => {
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-            <div className="flex items-center border rounded px-3 bg-gray-100">
-              <FaLock className="text-gray-400 mr-2" />
+            <label className="block mb-1 text-sm font-medium text-gray-700">Confirm Password</label>
+            <div className="flex items-center px-3 bg-gray-100 border rounded">
+              <FaLock className="mr-2 text-gray-400" />
               <input
                 type={showConfirm ? "text" : "password"}
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
-                className="w-full bg-gray-100 outline-none py-2"
+                className="w-full py-2 bg-gray-100 outline-none"
                 required
               />
               <button type="button" onClick={() => setShowConfirm(!showConfirm)}>
@@ -151,16 +151,16 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-full font-medium transition"
+            className="flex items-center justify-center w-full gap-2 py-2 font-medium text-white transition bg-blue-600 rounded-full hover:bg-blue-700"
           >
             <FaUserPlus />
             Register
           </button>
         </form>
 
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 font-medium hover:underline">
+          <Link to="/login" className="font-medium text-blue-600 hover:underline">
             Login
           </Link>
         </p>
