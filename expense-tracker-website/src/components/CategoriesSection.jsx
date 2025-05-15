@@ -46,7 +46,7 @@ const CategoriesSection = () => {
   // Fetch categories and transactions count
   useEffect(() => {
     // Fetch categories
-    fetch("http://localhost:8000/api/categories")
+    fetch("https://mi-linux.wlv.ac.uk/~2537566/public/api/categories")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -61,7 +61,7 @@ const CategoriesSection = () => {
 
     // Fetch transaction counts if logged in
     if (token) {
-      fetch("http://localhost:8000/api/transaction-counts", {
+      fetch("https://mi-linux.wlv.ac.uk/~2537566/public/api/transaction-counts", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -25,7 +25,7 @@ const ExpenseSection = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/transactions", {
+        const res = await axios.get("https://mi-linux.wlv.ac.uk/~2537566/public/api/transactions", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,7 +49,7 @@ const ExpenseSection = () => {
 
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/categories", {
+        const res = await axios.get("https://mi-linux.wlv.ac.uk/~2537566/public/api/categories", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -76,7 +76,7 @@ const ExpenseSection = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/transactions",
+        "https://mi-linux.wlv.ac.uk/~2537566/public/api/transactions",
         form,
         {
           headers: {

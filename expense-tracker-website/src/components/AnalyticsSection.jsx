@@ -53,7 +53,7 @@ const AnalyticsSection = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:8000/api/transactions", {
+        const res = await axios.get("https://mi-linux.wlv.ac.uk/~2537566/public/api/transactions", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -103,7 +103,7 @@ const AnalyticsSection = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:8000/api/user/expenses-by-category", {
+        const res = await axios.get("https://mi-linux.wlv.ac.uk/~2537566/public/api/user/expenses-by-category", {
           headers: { Authorization: `Bearer ${token}` },
           params: { year: selectedYear },
         });
