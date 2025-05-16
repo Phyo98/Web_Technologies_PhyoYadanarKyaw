@@ -12,7 +12,8 @@ class TransactionController extends Controller
 {
     public function index(Request $request)
     {
-        $transactions = Transaction::where('user_id', $request->user()->id)
+        $userId = $request->input('user_id', $request->user()->id);
+        $transactions = Transaction::where('user_id', $userId)
             ->with('category') 
             ->orderBy('date', 'desc')
             ->get();
@@ -22,28 +23,9 @@ class TransactionController extends Controller
         ]);
     }
 
-    // public function expensesByCategory(Request $request)
-    // {
-    //     $user = $request->user();
-
-    //     $expenses = Transaction::selectRaw('category_id, SUM(amount) as total')
-    //         ->where('user_id', $user->id)
-    //         ->groupBy('category_id')
-    //         ->with('category:id,name')
-    //         ->get()
-    //         ->map(function ($item) {
-    //             return [
-    //                 'category' => $item->category->name,
-    //                 'total' => $item->total,
-    //             ];
-    //         });
-
-    //     return response()->json($expenses);
-    // }
-
     public function expensesByCategory(Request $request)
     {
-        $user = $request->user();
+        $userId = $request->input('user_id', $request->user()->id);
         $year = $request->input('year', date('Y')); 
 
         // Only allow current year or last year
@@ -60,7 +42,7 @@ class TransactionController extends Controller
         $endDate = Carbon::createFromFormat('Y-m-d', "$year-12-31")->endOfDay();
 
         $expenses = Transaction::selectRaw('category_id, SUM(amount) as total')
-            ->where('user_id', $user->id)
+            ->where('user_id', $userId)
             ->whereBetween('date', [$startDate, $endDate]) 
             ->groupBy('category_id')
             ->with('category:id,name')
@@ -76,11 +58,11 @@ class TransactionController extends Controller
     }
 
 
-    public function counts()
+    public function counts(Request $request)
     {
-        $user = Auth::user();
+        $userId = $request->input('user_id', $request->user()->id);
 
-        $counts = Transaction::where('user_id', $user->id)
+        $counts = Transaction::where('user_id', $userId)
                             ->selectRaw('category_id, count(*) as count')
                             ->groupBy('category_id')
                             ->get();
