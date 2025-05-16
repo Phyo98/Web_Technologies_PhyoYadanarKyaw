@@ -7,13 +7,13 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://mi-linux.wlv.ac.uk/~2537566/public";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+     <BrowserRouter basename="/Web_Technologies_PhyoYadanarKyaw">
       <App />
     </BrowserRouter>
   </React.StrictMode>
