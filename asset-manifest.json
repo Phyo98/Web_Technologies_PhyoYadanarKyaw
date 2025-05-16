@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Web_Technologies_PhyoYadanarKyaw/static/css/main.aaad067f.css",
+    "main.js": "/Web_Technologies_PhyoYadanarKyaw/static/js/main.1669aff2.js",
+    "index.html": "/Web_Technologies_PhyoYadanarKyaw/index.html",
+    "main.aaad067f.css.map": "/Web_Technologies_PhyoYadanarKyaw/static/css/main.aaad067f.css.map",
+    "main.1669aff2.js.map": "/Web_Technologies_PhyoYadanarKyaw/static/js/main.1669aff2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aaad067f.css",
+    "static/js/main.1669aff2.js"
+  ]
+}
